@@ -16,8 +16,6 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
@@ -37,9 +35,10 @@ public class Aluno extends Usuario implements Serializable{
     @Column(name = "escolaridade", length = 30, nullable = false)
     private String escolaridade;
     @NotNull(message = "A matricula deve ser informada")
-    @OneToMany(mappedBy = "matricula", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    @OrderBy(value = "numero")
-    private List<Matricula> matriculas = new ArrayList<>();
+    
+    @ManyToOne
+    @JoinColumn(name = "matricula", referencedColumnName = "id", nullable = false)
+    private Matricula matricula;
 
     public Aluno() {
     }
@@ -52,15 +51,13 @@ public class Aluno extends Usuario implements Serializable{
         this.escolaridade = escolaridade;
     }
 
-    public List<Matricula> getMatriculas() {
-        return matriculas;
+    public Matricula getMatricula() {
+        return matricula;
     }
 
-    public void setMatriculas(List<Matricula> matriculas) {
-        this.matriculas = matriculas;
-    }
-
-    
+    public void setMatricula(Matricula matricula) {
+        this.matricula = matricula;
+    }  
     
     
 }

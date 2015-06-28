@@ -37,7 +37,7 @@ public class Matricula implements Serializable{
     
     @Column(name = "numero", nullable = false)
     @NotNull(message = "O numero da matricula deve ser informada!")
-    private Integer numero;
+    private String numero;
     
     @Temporal(TemporalType.DATE)
     @NotNull(message = "A data deve ser informada")
@@ -52,13 +52,6 @@ public class Matricula implements Serializable{
     @Column(name = "ativo", nullable = false)
     private Boolean ativo;
     
-    @ManyToOne
-    @JoinColumn(name = "aluno", referencedColumnName = "id", nullable = false)
-    private Aluno aluno;
-    
-    
-    
-
     public Matricula() {
     }
 
@@ -70,13 +63,7 @@ public class Matricula implements Serializable{
         this.id = id;
     }
 
-    public Integer getNumero() {
-        return numero;
-    }
-
-    public void setNumero(Integer numero) {
-        this.numero = numero;
-    }
+    
 
     public Calendar getData() {
         return data;
@@ -101,14 +88,6 @@ public class Matricula implements Serializable{
     public void setAtivo(Boolean ativo) {
         this.ativo = ativo;
     }
-    
-    public Aluno getAluno() {
-        return aluno;
-    }
-
-    public void setAluno(Aluno aluno) {
-        this.aluno = aluno;
-    }
 
     @Override
     public int hashCode() {
@@ -131,6 +110,16 @@ public class Matricula implements Serializable{
         }
         return true;
     } 
+
+    public String getNumero() {
+        return numero;
+    }
+
+    public void setNumero(String numero) {
+        this.numero = numero;
+    }
+
+    
     
     
 }
