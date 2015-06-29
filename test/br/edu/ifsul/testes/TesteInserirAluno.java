@@ -46,14 +46,13 @@ public class TesteInserirAluno {
     public void testar(){
         boolean exception = false ;
         try{
-            Aluno obj = em.find(Aluno.class,2);
+            Aluno obj = new Aluno();
             Matricula mat = em.find(Matricula.class,1);
             obj.setNome("Nome");
             obj.setNascimento(Calendar.getInstance());
             obj.setEndereco("Rua da pirir");
             obj.setLogin("mari");
             obj.setSenha("12345");
-            obj.setId(1);
             obj.setTelefone("33233432");
             obj.setEscolaridade("Ensino Medio");
             obj.setMatricula(mat);
