@@ -51,7 +51,7 @@ public class Turmas implements Serializable{
     
     @Temporal(TemporalType.DATE)
     @NotNull(message = "A data de término deve ser informada")
-    @Column(name = "dataInicio", nullable = false)
+    @Column(name = "dataFim", nullable = false)
     private Calendar dataFim;
     
     @Column(name = "numVagas", nullable = false)

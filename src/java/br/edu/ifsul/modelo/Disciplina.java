@@ -50,11 +50,6 @@ public class Disciplina implements Serializable{
     @NotNull(message = "A carga Horária da disciplina deve ser informada!")
     private Integer cargaHoraria;
     
-    @NotNull(message = "A matricula deve ser informada")
-    @OneToMany(mappedBy = "matricula", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    @OrderBy(value = "numero")
-    private List<Professor> professores = new ArrayList<>();
-    
     public Disciplina() {
     }
 
@@ -82,14 +77,6 @@ public class Disciplina implements Serializable{
         this.cargaHoraria = cargaHoraria;
     }
     
-    public List<Professor> getProfessores() {
-        return professores;
-    }
-
-    public void setProfessores(List<Professor> professores) {
-        this.professores = professores;
-    }
-
     @Override
     public int hashCode() {
         int hash = 7;
@@ -111,6 +98,7 @@ public class Disciplina implements Serializable{
         }
         return true;
     } 
+
     
     
 }

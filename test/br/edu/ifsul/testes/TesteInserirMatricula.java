@@ -44,12 +44,12 @@ public class TesteInserirMatricula {
     public void testar() {
         boolean exception = false;
         try {
+            System.out.println("Entrouu!!!");
             Matricula obj = new Matricula();
-            obj.setId(1);
             obj.setNumero("2321234");
             obj.setData(Calendar.getInstance());
             obj.setValor(34.40);
-            obj.setAtivo(true);
+            obj.setAtivo(false);
             em.getTransaction().begin();
             em.persist(obj);
             em.getTransaction().commit();

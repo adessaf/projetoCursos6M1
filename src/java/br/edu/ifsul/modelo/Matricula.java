@@ -44,8 +44,8 @@ public class Matricula implements Serializable{
     @Column(name = "data", nullable = false)
     private Calendar data;
     
-    @Column(name = "numero", nullable = false)
-    @NotNull(message = "O numero da matricula deve ser informada!")
+    @Column(name = "valor", nullable = false)
+    @NotNull(message = "O valor da matricula deve ser informada!")
     private Double valor;
     
     @NotNull(message = "O ativo deve ser informado")

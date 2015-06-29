@@ -20,6 +20,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -42,10 +43,10 @@ public class Professor extends Usuario implements Serializable{
     @Column(name = "escolaridade", length = 30, nullable = false)
     private String areaInteresse;
     
+    @NotNull(message="A disciplina deve ser informada")
     @ManyToOne
-    @JoinColumn(name = "disciplina", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name="disciplina", referencedColumnName = "id", nullable = false)
     private Disciplina disciplina;
-    
     
     @ManyToMany
     @JoinTable(name = "turmasProfessores", 
@@ -74,14 +75,7 @@ public class Professor extends Usuario implements Serializable{
         this.areaInteresse = areaInteresse;
     }
 
-    public Disciplina getDisciplina() {
-        return disciplina;
-    }
-
-    public void setDisciplina(Disciplina disciplina) {
-        this.disciplina = disciplina;
-    }
-
+   
     public List<Turmas> getTurmasProfessores() {
         return turmasProfessores;
     }
@@ -89,6 +83,16 @@ public class Professor extends Usuario implements Serializable{
     public void setTurmasProfessores(List<Turmas> turmasProfessores) {
         this.turmasProfessores = turmasProfessores;
     }
+
+    public Disciplina getDisciplina() {
+        return disciplina;
+    }
+
+    public void setDisciplina(Disciplina disciplina) {
+        this.disciplina = disciplina;
+    }
+    
+    
 
       
 }
