@@ -162,49 +162,15 @@
                                     <p:inputText value="#{controleProfessor.objeto.nome}"
                                                  id="txtAreaInteresse" size="50" maxlength="50"/>
                                     <p:outputLabel value="Disciplina" for="selectDisciplina"/>
-                                    <p:selectOneMenu value="#{controleProfessor.objeto.disciplina}" id="selectCliente">
+                                    <p:selectOneMenu value="#{controleProfessor.objeto.disciplina}" id="selectDisciplina">
                                         <f:converter converterId="converterDisciplina"/>
                                         <f:selectItem noSelectionOption="true"
                                                       itemLabel="Selecione um registro"/>
-                                        <f:selectItems value="#{controleDisciplina.dao.listObjects}"
-                                                       var="d" itemLabel="#{d.nome}"/>
+                                        <f:selectItems value="#{controleDisciplina.dao.listAll}" var="d" itemLabel="#{d.nome}"/>
                                     </p:selectOneMenu> 
                                 </p:panelGrid>
                             </div>
-                        </p:tab>    
-
-                        <p:tab title="Turmas" titletip="Turmas">
-                            <div align="center">
-                                <p:panelGrid columns="3">
-                                    <p:outputLabel value="Turmas"/>
-                                    <p:selectOneMenu value="#{controleProfessor.turma}" id="selectTurma">
-                                        <f:converter converterId="converterTurma"/>
-                                        <f:selectItems value="#{controleTurma.dao.listObjects}"
-                                                       var="t" itemLabel="#{t.nome}"/>
-                                    </p:selectOneMenu>
-                                    <p:commandButton 
-                                        actionListener="#{controleProfessor.adicionarTurma()}"
-                                        update="listaTurmas :formListagem:growl" 
-                                        icon="ui-icon-plus" id="btnNovaTurma"
-                                        process="btnNovaTurma selectTurma"/>
-                                </p:panelGrid>    
-                            </div>                            
-                            <p:dataTable value="#{controleProfessor.objeto.turmasProfessores}" var="des" 
-                                         id="listaTurmas">
-                                <p:column headerText="Turma">
-                                    <p:outputLabel value="#{des.nome}"/>                                    
-                                </p:column>                          
-                                <p:column headerText="Ações">
-                                    <div align="center">
-                                        <p:commandButton icon="ui-icon-trash"
-                                                         actionListener="#{controleProfessor.removerTurmas(des)}"
-                                                         process="btnRemoverTurma" id="btnRemoverTurma"
-                                                         update="listaTurmas :formListagem:growl"/>
-                                    </div>
-                                </p:column>                            
-                            </p:dataTable>
-                        </p:tab>
-
+                        </p:tab>  
                     </p:tabView>
                 </h:form>
             </p:dialog>
