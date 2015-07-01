@@ -44,7 +44,6 @@ public class TesteInserirMatricula {
     public void testar() {
         boolean exception = false;
         try {
-            System.out.println("Entrouu!!!");
             Matricula obj = new Matricula();
             obj.setNumero("2321234");
             obj.setData(Calendar.getInstance());
