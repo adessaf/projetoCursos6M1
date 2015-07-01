@@ -16,6 +16,8 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
@@ -39,6 +41,12 @@ public class Aluno extends Usuario implements Serializable{
     @ManyToOne
     @JoinColumn(name = "matricula", referencedColumnName = "id", nullable = false)
     private Matricula matricula;
+    
+    @NotNull(message="A turma deve ser informada")
+    @ManyToOne
+    @JoinColumn(name="turmas", referencedColumnName = "id", nullable = false)
+    private Turmas turmas;
+    
 
     public Aluno() {
     }
@@ -57,7 +65,14 @@ public class Aluno extends Usuario implements Serializable{
 
     public void setMatricula(Matricula matricula) {
         this.matricula = matricula;
-    }  
-    
+    } 
+
+    public Turmas getTurmas() {
+        return turmas;
+    }
+
+    public void setTurmas(Turmas turmas) {
+        this.turmas = turmas;
+    }     
     
 }

@@ -9,14 +9,17 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -62,6 +65,10 @@ public class Cursos implements Serializable{
             //inverseJoinColumn se refere a coluna que armazena o id da entidade do outro lado da relação
             inverseJoinColumns = @JoinColumn (name = "disciplina", referencedColumnName = "id"))
     private List<Disciplina> cursosDisciplina = new ArrayList<>();
+   
+   @OneToMany(mappedBy = "cursos", cascade = CascadeType.ALL,
+            orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<Turmas> turmas = new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -110,6 +117,8 @@ public class Cursos implements Serializable{
     public void setCursosDisciplina(List<Disciplina> cursosDisciplina) {
         this.cursosDisciplina = cursosDisciplina;
     }
+    
+    
 
     @Override
     public int hashCode() {
@@ -132,7 +141,14 @@ public class Cursos implements Serializable{
         }
         return true;
     }
-    
-    
+
+    public List<Turmas> getTurmas() {
+        return turmas;
+    }
+
+    public void setTurmas(List<Turmas> turmas) {
+        this.turmas = turmas;
+    }
+     
         
 }
