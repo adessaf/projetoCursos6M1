@@ -92,7 +92,15 @@ public class Professor extends Usuario implements Serializable{
         this.disciplina = disciplina;
     }
     
+     public void adicionarTurmas(Turmas obj){
+        if (!this.getTurmasProfessores().contains(obj)){
+            this.getTurmasProfessores().add(obj);
+        }
+    }
     
+    public void removerTurmas(Turmas obj){
+        this.getTurmasProfessores().remove(obj);
+    }
 
       
 }
