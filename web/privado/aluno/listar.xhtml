@@ -156,7 +156,12 @@
                         <p:selectOneMenu value="#{controleAluno.objeto.matricula}" id="txtMatricula">
                             <f:converter converterId="converterMatricula"/>
                             <f:selectItem noSelectionOption="true" itemLabel="Selecione um registro"/>
-                            <f:selectItems value="#{controleMatricula.dao.listAll}" var="m" itemLabel="#{m.numero}"/>
+                            <f:selectItems value="#{controleMatricula.dao.listObjects}" var="m" itemLabel="#{m.numero}"/>
+                        </p:selectOneMenu>
+                        <p:selectOneMenu value="#{controleAluno.objeto.turmas}" id="txtMatricula">
+                            <f:converter converterId="converterTurma"/>
+                            <f:selectItem noSelectionOption="true" itemLabel="Selecione um registro"/>
+                            <f:selectItems value="#{controleTurma.dao.listAll}" var="t" itemLabel="#{t.nome}"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="Login" for="txtLogin"/>
                         <p:inputText value="#{controleAluno.objeto.login}"

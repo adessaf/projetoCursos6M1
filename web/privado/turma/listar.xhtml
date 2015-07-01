@@ -1,0 +1,156 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="/templates/template.xhtml">
+        <ui:define name="titulo">Listagem de Turmas</ui:define>
+        <ui:define name="conteudo">
+            <h:form id="formListagem">
+                <p:growl/>
+                <p:commandButton action="#{controlePrincipal.home()}"
+                                 icon="ui-icon-home"/>            
+                <div align="center">
+                    <p:panelGrid columns="1">
+                        <f:facet name="header">  
+                            Ordenação e Paginação 
+                        </f:facet>                          
+                        <p:column  colspan="13" rowspan="1">     
+                            <p:commandButton actionListener="#{controleTurma.novo()}"
+                                             value="Novo" oncomplete="PF('dlg').show();"
+                                             update=":formEdicao" icon="ui-icon-plus"/>
+
+                            &nbsp;
+                            <h:outputLabel for="ordem" value="Ordem" />
+                            &nbsp;
+                            <h:selectOneMenu id="ordem" 
+                                             value="#{controleTurma.dao.currentOrder}"
+                                             converter="#{controleTurma.dao.converterOrder}">
+                                <f:selectItems value="#{controleTurma.dao.listOrder}" />
+                                <p:ajax update="formListagem" 
+                                        listener="#{controleTurma.listar()}"/>
+                            </h:selectOneMenu>
+
+                            &nbsp;
+                            <h:outputLabel for="maximoObjetos" value="Máximo de objetos" />
+                            &nbsp;
+                            <p:inputText id="maximoObjetos"  
+                                         value="#{controleTurma.dao.maxObjects}" size="2"
+                                         onkeydown="Mascara(this, Integer);"
+                                         onkeypress="Mascara(this, Integer);"
+                                         onkeyup="Mascara(this, Integer);">
+                                <p:ajax update="tabela"
+                                        listener="#{controleTurma.listar()}" event="keyup"/>                          
+                            </p:inputText>
+
+                            &nbsp;
+                            <h:outputLabel for="filtro" value="Filtro" />
+                            &nbsp;
+                            <p:inputText id="filtro" placeholder="Digite o filtro"
+                                         value="#{controleTurma.dao.filter}" >
+                                <p:ajax update="tabela" 
+                                        listener="#{controleTurma.listar()}" event="keyup"/>                            
+                            </p:inputText>
+
+                            &nbsp;
+                            <p:commandButton id="btnFiltrar" update="formListagem" 
+                                             actionListener="#{controleTurma.listar()}" icon="ui-icon-search" />  
+                            <p:commandButton id="btnPrimeiro" update="formListagem" 
+                                             actionListener="#{controleTurma.dao.first()}" icon="ui-icon-seek-start"/>  
+                            <p:commandButton id="btnAnterior" update="formListagem" 
+                                             actionListener="#{controleTurma.dao.previous()}" icon="ui-icon-seek-prev"/>  
+                            <p:commandButton  id="btnProximo" update="formListagem" 
+                                              actionListener="#{controleTurma.dao.next()}" icon="ui-icon-seek-next"/>  
+                            <p:commandButton id="btnUltimo" update="formListagem" 
+                                             actionListener="#{controleTurma.dao.last()}" icon="ui-icon-seek-end" /> 
+                        </p:column>  
+                    </p:panelGrid>                     
+                </div>  
+                <p:dataTable value="#{controleTurma.dao.listObjects}"
+                             var="obj" id="tabela"
+                             emptyMessage="Nenhum registro encontrado">
+
+                    <p:column headerText="ID">
+                        <p:outputLabel value="#{obj.id}"/>
+                    </p:column>
+
+                    <p:column headerText="Nome">
+                        <p:outputLabel value="#{obj.nome}"/>
+                    </p:column>
+                    <p:column headerText="Data Inicio">
+                        <p:outputLabel value="#{obj.dataInicio}">
+                            <f:converter converterId="converterCalendar"/>
+                        </p:outputLabel>
+                    </p:column>
+                    <p:column headerText="Data Fim">
+                        <p:outputLabel value="#{obj.dataFim}">
+                            <f:converter converterId="converterCalendar"/>
+                        </p:outputLabel>
+                    </p:column>
+                    <p:column headerText="Numero de Vagas">
+                        <p:outputLabel value="#{obj.numVagas}"/>                            
+                    </p:column>
+                    <p:column headerText="Ativo">
+                        <p:outputLabel value="#{obj.ativo}"/>
+                    </p:column>
+                    <p:column headerText="Ações"> 
+                        <div align="center">
+                            <p:commandButton actionListener="#{controleTurma.editar(obj.id)}"
+                                             oncomplete="PF('dlg').show();" 
+                                             update=":formEdicao" icon="ui-icon-pencil"/>
+                            <p:commandButton actionListener="#{controleTurma.remover(obj.id)}"
+                                             update=":formListagem" icon="ui-icon-trash"
+                                             onclick="if (!confirm('Confirma a exclusão da matricula #{obj.numero}?'))
+                                                     return false"/>
+                        </div>
+                    </p:column> 
+                    <f:facet name="footer">  
+                        <h:outputLabel value="#{controleTurma.dao.navigationMessage}" />
+                    </f:facet>                     
+                </p:dataTable>
+
+            </h:form>
+        </ui:define>
+        <ui:define name="dialogos">
+            <p:dialog header="Edição" widgetVar="dlg" 
+                      resizable="false" modal="true"> 
+                <h:form id="formEdicao">
+                    <p:panelGrid columns="2">
+                        <f:facet name="footer">
+                            <div align="center">
+                                <p:commandButton
+                                    value="Salvar"
+                                    update=":formListagem :formEdicao"
+                                    actionListener="#{controleTurma.salvar()}"                                
+                                    oncomplete="if(!args.validationFailed){PF('dlg').hide();}"
+                                    icon="ui-icon-disk"
+                                    />
+                            </div>
+                        </f:facet>
+
+                        <p:outputLabel value="ID" for="txtId"/>
+                        <p:inputText value="#{controleTurma.objeto.id}" id="txtId"
+                                     size="10" maxlength="10" readonly="true"/>
+
+                        <p:outputLabel value="Numero" for="txtNumero"/>
+                        <p:inputText value="#{controleTurma.objeto.numero}"
+                                     id="txtNumero" size="50" maxlength="50"/>
+                         <p:outputLabel value="Data" for="txtData"/>
+                         <p:calendar value="#{controleTurma.objeto.data}"
+                                            id="txtData" pattern="dd/MM/yyyy" mask="true">
+                                    <f:converter converterId="converterCalendar"/>
+                         </p:calendar>
+                         <p:outputLabel value="Valor" for="txtValor"/>
+                        <p:inputText value="#{controleTurma.objeto.valor}"
+                                     id="txtValor" size="50" maxlength="50"/>
+                         <h:outputLabel value="Ativo" for="txtAtivo"/>
+                         <h:selectBooleanCheckbox value="#{controleTurma.objeto.ativo}"
+                                                 id="txtAtivo"/>
+                    </p:panelGrid>                
+                </h:form>
+            </p:dialog>
+        </ui:define>
+    </ui:composition>
+</html>

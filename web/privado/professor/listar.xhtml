@@ -167,10 +167,17 @@
                                         <f:selectItem noSelectionOption="true"
                                                       itemLabel="Selecione um registro"/>
                                         <f:selectItems value="#{controleDisciplina.dao.listAll}" var="d" itemLabel="#{d.nome}"/>
-                                    </p:selectOneMenu> 
+                                    </p:selectOneMenu>
+                                    <p:outputLabel value="Login" for="txtLogin"/>
+                                    <p:inputText value="#{controleProfessor.objeto.login}"
+                                                 id="txtLogin" size="50" maxlength="50"/>
+                                    <p:outputLabel value="Senha" for="txtSenha"/>
+                                    <p:inputText value="#{controleProfessor.objeto.senha}" 
+                                                 id="txtSenha" size="10" maxlength="10" />
                                 </p:panelGrid>
                             </div>
-                        </p:tab>  
+                        </p:tab>    
+
                     </p:tabView>
                 </h:form>
             </p:dialog>
