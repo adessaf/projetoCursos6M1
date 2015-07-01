@@ -47,14 +47,6 @@ public class Professor extends Usuario implements Serializable{
     @ManyToOne
     @JoinColumn(name="disciplina", referencedColumnName = "id", nullable = false)
     private Disciplina disciplina;
-    
-    @ManyToMany
-    @JoinTable(name = "turmasProfessores", 
-            //joinColumn se refere a coluna que armazena o id desta entidade
-            joinColumns = @JoinColumn(name = "professor", referencedColumnName = "id"), 
-            //inverseJoinColumn se refere a coluna que armazena o id da entidade do outro lado da relação
-            inverseJoinColumns = @JoinColumn (name = "turmas", referencedColumnName = "id"))
-    private List<Turmas> turmasProfessores = new ArrayList<>();
 
     public Professor() {
     }
@@ -76,30 +68,12 @@ public class Professor extends Usuario implements Serializable{
     }
 
    
-    public List<Turmas> getTurmasProfessores() {
-        return turmasProfessores;
-    }
-
-    public void setTurmasProfessores(List<Turmas> turmasProfessores) {
-        this.turmasProfessores = turmasProfessores;
-    }
-
     public Disciplina getDisciplina() {
         return disciplina;
     }
 
     public void setDisciplina(Disciplina disciplina) {
         this.disciplina = disciplina;
-    }
-    
-     public void adicionarTurmas(Turmas obj){
-        if (!this.getTurmasProfessores().contains(obj)){
-            this.getTurmasProfessores().add(obj);
-        }
-    }
-    
-    public void removerTurmas(Turmas obj){
-        this.getTurmasProfessores().remove(obj);
     }
 
       

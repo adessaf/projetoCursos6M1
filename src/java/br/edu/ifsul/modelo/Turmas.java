@@ -58,14 +58,6 @@ public class Turmas implements Serializable{
     @NotNull(message = "O numero de vagas deve ser informada!")
     private Integer numVagas;
     
-    @ManyToMany
-    @JoinTable(name = "turmasProfessores", 
-            //joinColumn se refere a coluna que armazena o id desta entidade
-            joinColumns = @JoinColumn(name = "professor", referencedColumnName = "id"), 
-            //inverseJoinColumn se refere a coluna que armazena o id da entidade do outro lado da relação
-            inverseJoinColumns = @JoinColumn (name = "turmas", referencedColumnName = "id"))
-    private List<Professor> turmasProfessores = new ArrayList<>();
-
     public Turmas() {
     }
 
@@ -107,16 +99,6 @@ public class Turmas implements Serializable{
 
     public void setNumVagas(Integer numVagas) {
         this.numVagas = numVagas;
-    }
-
-    public List<Professor> getTurmasProfessores() {
-        return turmasProfessores;
-    }
-
-    public void setTurmasProfessores(List<Professor> turmasProfessores) {
-        this.turmasProfessores = turmasProfessores;
-    }
-    
-    
+    }   
     
 }
