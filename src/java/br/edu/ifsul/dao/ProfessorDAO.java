@@ -5,7 +5,7 @@
  */
 package br.edu.ifsul.dao;
 
-import br.edu.ifsul.modelo.Aluno;
+import br.edu.ifsul.modelo.Professor;
 import br.edu.ifsul.modelo.Usuario;
 import java.io.Serializable;
 import javax.ejb.Stateful;
@@ -17,13 +17,13 @@ import javax.persistence.Query;
  */
 
 @Stateful
-public class AlunoDAO<T> extends GenericDAO<Aluno> implements Serializable{
+public class ProfessorDAO<T> extends GenericDAO<Professor> implements Serializable{
 
-    public AlunoDAO() {
+    public ProfessorDAO() {
         
         super();
         //definindo a classe persistence
-        super.setPersistentClass(Aluno.class);
+        super.setPersistentClass(Professor.class);
         //definindo as ordenações possiveis
         super.getListOrder().add(new Order("id","ID", "="));
         super.getListOrder().add(new Order("nome", "Nome", "like"));
@@ -31,9 +31,7 @@ public class AlunoDAO<T> extends GenericDAO<Aluno> implements Serializable{
         super.setCurrentOrder((Order) super.getListOrder().get(1));
         super.setFilter("");
         super.setConverterOrder(new ConverterOrder(super.getListOrder()));
-        
     }
-    
     
     public Usuario getObjetctById(Integer id){
         Usuario obj = super.getEm().find(Usuario.class, id);
@@ -58,7 +56,5 @@ public class AlunoDAO<T> extends GenericDAO<Aluno> implements Serializable{
         obj.getNome();
         return obj;
     }
-    
-    
     
 }
