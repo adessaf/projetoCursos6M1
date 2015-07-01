@@ -119,6 +119,16 @@ public class Cursos implements Serializable{
     }
     
     
+    public void adicionarDisciplina(Disciplina obj){
+        if (!this.getCursosDisciplina().contains(obj)){
+            this.getCursosDisciplina().add(obj);
+        }
+    }
+    
+    public void removerDisciplina(Disciplina obj){
+        this.getCursosDisciplina().remove(obj);
+    }
+    
 
     @Override
     public int hashCode() {

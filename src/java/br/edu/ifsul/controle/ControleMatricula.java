@@ -5,8 +5,8 @@
  */
 package br.edu.ifsul.controle;
 
-import br.edu.ifsul.dao.DisciplinaDAO;
-import br.edu.ifsul.modelo.Disciplina;
+import br.edu.ifsul.dao.MatriculaDAO;
+import br.edu.ifsul.modelo.Matricula;
 import br.edu.ifsul.util.Util;
 import java.io.Serializable;
 import javax.ejb.EJB;
@@ -18,23 +18,23 @@ import javax.faces.bean.ViewScoped;
  * @author Andressa
  */
 
-@ManagedBean(name = "controleDisciplina")
+@ManagedBean(name = "controleMatricula")
 @ViewScoped
-public class ControleDisciplina implements Serializable{
+public class ControleMatricula implements Serializable{
     
     @EJB
-    private DisciplinaDAO<Disciplina> dao;
-    private Disciplina objeto;
+    private MatriculaDAO<Matricula> dao;
+    private Matricula objeto;
 
-    public ControleDisciplina() {
+    public ControleMatricula() {
     }
     
-     public String listar(){
-        return "privado/disciplina/listar";
+    public String listar(){
+        return "privado/matricula/listar";
     }
     
     public void novo(){
-        objeto = new Disciplina();
+        objeto = new Matricula();
     }
     
     public void salvar(){
@@ -69,23 +69,19 @@ public class ControleDisciplina implements Serializable{
         
     }
 
-    public DisciplinaDAO<Disciplina> getDao() {
+    public MatriculaDAO<Matricula> getDao() {
         return dao;
     }
 
-    public void setDao(DisciplinaDAO<Disciplina> dao) {
+    public void setDao(MatriculaDAO<Matricula> dao) {
         this.dao = dao;
     }
 
-    public Disciplina getObjeto() {
+    public Matricula getObjeto() {
         return objeto;
     }
 
-    public void setObjeto(Disciplina objeto) {
+    public void setObjeto(Matricula objeto) {
         this.objeto = objeto;
     }
-
-    
-    
-    
 }
