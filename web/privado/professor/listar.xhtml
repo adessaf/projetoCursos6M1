@@ -183,23 +183,23 @@
                                                        var="t" itemLabel="#{t.nome}"/>
                                     </p:selectOneMenu>
                                     <p:commandButton 
-                                        actionListener="#{controleProfessor.adicionarTu()}"
-                                        update="listaFilmes :formListagem:growl" 
-                                        icon="ui-icon-plus" id="btnNovoFilme"
-                                        process="btnNovoFilme selectFilme"/>
+                                        actionListener="#{controleProfessor.adicionarTurma()}"
+                                        update="listaTurmas :formListagem:growl" 
+                                        icon="ui-icon-plus" id="btnNovaTurma"
+                                        process="btnNovaTurma selectTurma"/>
                                 </p:panelGrid>    
                             </div>                            
-                            <p:dataTable value="#{controleProfessor.objeto.filmes}" var="des" 
-                                         id="listaFilmes">
-                                <p:column headerText="Filme">
+                            <p:dataTable value="#{controleProfessor.objeto.turmasProfessores}" var="des" 
+                                         id="listaTurmas">
+                                <p:column headerText="Turma">
                                     <p:outputLabel value="#{des.nome}"/>                                    
                                 </p:column>                          
                                 <p:column headerText="Ações">
                                     <div align="center">
                                         <p:commandButton icon="ui-icon-trash"
-                                                         actionListener="#{controleProfessor.removerFilme(des)}"
-                                                         process="btnRemoverFilme" id="btnRemoverFilme"
-                                                         update="listaFilmes :formListagem:growl"/>
+                                                         actionListener="#{controleProfessor.removerTurmas(des)}"
+                                                         process="btnRemoverTurma" id="btnRemoverTurma"
+                                                         update="listaTurmas :formListagem:growl"/>
                                     </div>
                                 </p:column>                            
                             </p:dataTable>
