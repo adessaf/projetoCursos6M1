@@ -6,11 +6,17 @@
 package br.edu.ifsul.modelo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -48,6 +54,14 @@ public class Cursos implements Serializable{
     @Column(name = "valor", nullable = false)
     @NotNull(message = "O valor deve ser informado!")
     private Double valor;
+    
+   @ManyToMany
+    @JoinTable(name = "cursosDisciplinas", 
+            //joinColumn se refere a coluna que armazena o id desta entidade
+            joinColumns = @JoinColumn(name = "cursos", referencedColumnName = "id"), 
+            //inverseJoinColumn se refere a coluna que armazena o id da entidade do outro lado da relação
+            inverseJoinColumns = @JoinColumn (name = "disciplina", referencedColumnName = "id"))
+    private List<Disciplina> cursosDisciplina = new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -88,5 +102,37 @@ public class Cursos implements Serializable{
     public void setValor(Double valor) {
         this.valor = valor;
     }
+
+    public List<Disciplina> getCursosDisciplina() {
+        return cursosDisciplina;
+    }
+
+    public void setCursosDisciplina(List<Disciplina> cursosDisciplina) {
+        this.cursosDisciplina = cursosDisciplina;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 23 * hash + Objects.hashCode(this.id);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Cursos other = (Cursos) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
         
 }
