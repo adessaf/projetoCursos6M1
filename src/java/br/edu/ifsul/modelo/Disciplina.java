@@ -17,6 +17,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
@@ -49,6 +51,14 @@ public class Disciplina implements Serializable{
     @Column(name = "cargaHoraria", length = 2, nullable = false)
     @NotNull(message = "A carga Horária da disciplina deve ser informada!")
     private Integer cargaHoraria;
+    
+    @ManyToMany
+    @JoinTable(name = "cursosDisciplinas", 
+            //joinColumn se refere a coluna que armazena o id desta entidade
+            joinColumns = @JoinColumn(name = "cursos", referencedColumnName = "id"), 
+            //inverseJoinColumn se refere a coluna que armazena o id da entidade do outro lado da relação
+            inverseJoinColumns = @JoinColumn (name = "disciplina", referencedColumnName = "id"))
+    private List<Cursos> cursosDisciplina = new ArrayList<>();
     
     public Disciplina() {
     }
@@ -98,6 +108,14 @@ public class Disciplina implements Serializable{
         }
         return true;
     } 
+
+    public List<Cursos> getCursosDisciplina() {
+        return cursosDisciplina;
+    }
+
+    public void setCursosDisciplina(List<Cursos> cursosDisciplina) {
+        this.cursosDisciplina = cursosDisciplina;
+    }
 
     
     
