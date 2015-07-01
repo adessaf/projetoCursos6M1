@@ -7,6 +7,7 @@ package br.edu.ifsul.testes;
 
 import br.edu.ifsul.modelo.Aluno;
 import br.edu.ifsul.modelo.Matricula;
+import br.edu.ifsul.modelo.Turmas;
 import java.util.Calendar;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -47,7 +48,8 @@ public class TesteInserirAluno {
         boolean exception = false ;
         try{
             Aluno obj = new Aluno();
-            Matricula mat = em.find(Matricula.class,1);
+            Matricula mat = em.find(Matricula.class,5);
+            Turmas tur = em.find(Turmas.class, 1);
             obj.setNome("Nome");
             obj.setNascimento(Calendar.getInstance());
             obj.setEndereco("Rua da pirir");
@@ -56,6 +58,7 @@ public class TesteInserirAluno {
             obj.setTelefone("33233432");
             obj.setEscolaridade("Ensino Medio");
             obj.setMatricula(mat);
+            obj.setTurmas(tur);
             em.getTransaction().begin();
             em.persist(obj);
             em.getTransaction().commit();
